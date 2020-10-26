@@ -5,6 +5,7 @@ var x = canvas.width/2;
 var y = canvas.height-30;
 var gx = x
 var gy = y
+var colour = "#0095DD"
 
 //ball variables
 var dx = 2;
@@ -72,6 +73,12 @@ function mouseMoveHandler(e){
     }
 }
 
+function colourRandomiser(){
+    var lst = ["#9B59B6", "#45B39D", "#F5B041", "#0095DD", "#E74C3C", "#99A3A4"]
+    var num = Math.floor(Math.random() * lst.length)
+    colour = lst[num]
+}
+
 //collision detection
 function collisionDetection(){
     for(var c=0; c < brickColumnCount; c++){
@@ -82,6 +89,7 @@ function collisionDetection(){
                     dy = -dy
                     b.status = 0
                     score++;
+                    colourRandomiser()
                     if(score == brickColumnCount*brickRowCount){
                         alert("YOU WIN, CONGRATULATIONS!!!");
                         document.location.reload();
@@ -96,7 +104,7 @@ function collisionDetection(){
 function drawBall(){
     ctx.beginPath();
     ctx.arc(x,y,ballRadius,0,Math.PI*2);
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = colour;
     ctx.fill();
     ctx.closePath();
 };
@@ -113,7 +121,7 @@ function drawGhostBall(){
 function drawPaddle(){
     ctx.beginPath();
     ctx.rect(paddleX,canvas.height-paddleHeight,paddleWidth,paddleHeight);
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = colour;
     ctx.fill();
     ctx.closePath()
 };
@@ -129,7 +137,7 @@ function drawBricks(){
                 bricks[c][r].y = brickY
                 ctx.beginPath()
                 ctx.rect(brickX, brickY ,brickWidth, brickHeight);
-                ctx.fillStyle = "#0095DD";
+                ctx.fillStyle = colour;
                 ctx.fill()
                 ctx.closePath();
             }
@@ -141,14 +149,14 @@ function drawBricks(){
 //score function
 function drawScore(){
     ctx.font = "16px Arial"
-    ctx.fillStyle = "#0095DD"
+    ctx.fillStyle = colour
     ctx.fillText("Score: "+score,8,20)
 }
 
 //lives function
 function drawLives() {
     ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = colour;
     ctx.fillText("Lives: "+lives, canvas.width-65, 20);
 }
 
